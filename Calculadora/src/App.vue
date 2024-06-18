@@ -1,15 +1,31 @@
 <script lang="ts">
 import TitleComponent from "./components/TitleComponent/title-component.vue"
+import ButtonComponent from "./components/ButtonComponent/button-component.vue";
 import { Calculator } from "./utils/calculator";
 
 export default {
   name: "App",
   data() {
-    let valueInput1 = 1
+   let value1 : ""
+   let value2 : ""
+    
   },
   components: {
-    TitleComponent
-  },
+    ButtonComponent,
+    TitleComponent,
+
+    let simbolCalculator = new Vue(
+      e1 : 'testo',
+      data : {
+         itens :  [{tag: "1"},
+                  {tag: "2"},
+                  {tag: "3"},
+                  {tag: "4"},
+                  {tag: "4"},
+                  {tag: "5"},
+                  {tag: "6"}]                
+              }),
+
   computed: {
     calculator(): Calculator {
       return new Calculator()
@@ -17,15 +33,26 @@ export default {
   },
   methods:{
     onclick() {
-      let result = this.calculator.division();
+      // let result = this.calculator.division();
     }
   }
 
-}
+
 </script>
 
 <template>
-  <TitleComponent />
+  <div>
+    <TitleComponent />
+  <div>
+
+    <ul id = "vetor">
+      <p v-for="(item, index) in ">
+         {{ item [index] }}
+      </p>       
+    </ul>     
+  </div>
+  </div>
+ 
 </template>
 
 <style scoped>
