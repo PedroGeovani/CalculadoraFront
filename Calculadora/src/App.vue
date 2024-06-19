@@ -2,36 +2,13 @@
   <div>
     <TitleComponent />
     <h3> saida do display: {{ textOut }} </h3>
-    <div> 
-      <button @click="calc((tags[1]))"> {{ tags[1] }} </button>
-      <button @click="calc((tags[2]))"> {{ tags[2] }} </button>
-      <button @click="calc((tags[3]))"> {{ tags[3] }} </button> 
-      <button @click="calc((tags[10]))"> {{ tags[10] }} </button>
-    </div>
 
-    <div> 
-      <button @click="calc((tags[4]))"> {{ tags[4] }} </button>
-      <button @click="calc((tags[5]))"> {{ tags[5] }} </button>
-      <button @click="calc((tags[6]))"> {{ tags[6] }} </button> 
-      <button @click="calc((tags[11]))"> {{ tags[11] }} </button>
-    </div>
+    <ul v-for="(tag, index) in tags" :key="tag" @click="calc((tags[index]))">     
+      <ButtonComponent :title="tag"/>
+      <p v-if="((index+1) === 0)"> </p>  
+    </ul>
 
-    <div> 
-      <button @click="calc((tags[7]))"> {{ tags[7] }} </button>
-      <button @click="calc((tags[8]))"> {{ tags[8] }} </button>
-      <button @click="calc((tags[9]))"> {{ tags[9] }} </button> 
-      <button @click="calc((tags[12]))"> {{ tags[12] }} </button>
-    </div>
-
-    <div> 
-      <button @click="calc((tags[15]))"> {{ tags[15] }} </button>
-      <button @click="calc((tags[0]))"> {{ tags[0] }} </button>
-      <button @click="calc((tags[13]))"> {{ tags[13] }} </button>
-      <button @click="calc((tags[14]))"> {{ tags[14] }} </button> 
-    </div>
-    
-    <h4> Valor Armazenado:  {{ value1 }} </h4>    
-    <h4> temp : {{ textInput }} </h4>
+   
   </div> 
 </template>
 
@@ -47,7 +24,7 @@ export default {
   name: "App",
   data() {
     return {
-      tags : ['0','1','2','3','4','5','6','7','8','9','+','-','x','/','=','Clear' ],
+      tags : ['1','2','3','+','4','5','6','-','7','8','9','0','=','Clear'],
       controlOperation : 'b',
       signal : 'a',
       textOut : "",
@@ -58,14 +35,14 @@ export default {
     
   },
 
-  components: {
+  components: {    
     ButtonComponent,
     TitleComponent,
-    // computed: {
-    //   calculator(): Calculator {
-    //   return new Calculator()
-    //   }
-    // }
+    computed: {
+      calculator(): Calculator {
+        return new Calculator()
+      }
+    }
   },
   methods: {
       calc(enter : string ){

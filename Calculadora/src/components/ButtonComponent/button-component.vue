@@ -1,13 +1,21 @@
 <template>
-    <button > {{ title }} </button>
+    <div>    
+        <button @click="sendValue">{{ title }}</button>
+    </div>
 </template>
 
 <script lang="ts">
 export default {
-    data() {
-        return {
-            title: "10"
+    name:'SendValue', // renomear o componente
+    emits:['onSendValue'],
+    props:{
+        title: String,
+    },
+    methods: {
+        sendValue() {
+            this.$emit('onSendValue',this.title)
         }
     }
+    
 }
 </script>
