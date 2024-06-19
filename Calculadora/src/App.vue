@@ -1,60 +1,115 @@
-<script lang="ts">
-import TitleComponent from "./components/TitleComponent/title-component.vue"
-import ButtonComponent from "./components/ButtonComponent/button-component.vue";
-import { Calculator } from "./utils/calculator";
-
-export default {
-  name: "App",
-  data() {
-   let value1 : ""
-   let value2 : ""
-    
-  },
-  components: {
-    ButtonComponent,
-    TitleComponent,
-
-    let simbolCalculator = new Vue(
-      e1 : 'testo',
-      data : {
-         itens :  [{tag: "1"},
-                  {tag: "2"},
-                  {tag: "3"},
-                  {tag: "4"},
-                  {tag: "4"},
-                  {tag: "5"},
-                  {tag: "6"}]                
-              }),
-
-  computed: {
-    calculator(): Calculator {
-      return new Calculator()
-    }
-  },
-  methods:{
-    onclick() {
-      // let result = this.calculator.division();
-    }
-  }
-
-
-</script>
-
 <template>
   <div>
     <TitleComponent />
-  <div>
+    <h3> saida do display: {{ textOut }} </h3>
+    <div> 
+      <button @click="calc((tags[1]))"> {{ tags[1] }} </button>
+      <button @click="calc((tags[2]))"> {{ tags[2] }} </button>
+      <button @click="calc((tags[3]))"> {{ tags[3] }} </button> 
+      <button @click="calc((tags[10]))"> {{ tags[10] }} </button>
+    </div>
 
-    <ul id = "vetor">
-      <p v-for="(item, index) in ">
-         {{ item [index] }}
-      </p>       
-    </ul>     
-  </div>
-  </div>
- 
+    <div> 
+      <button @click="calc((tags[4]))"> {{ tags[4] }} </button>
+      <button @click="calc((tags[5]))"> {{ tags[5] }} </button>
+      <button @click="calc((tags[6]))"> {{ tags[6] }} </button> 
+      <button @click="calc((tags[11]))"> {{ tags[11] }} </button>
+    </div>
+
+    <div> 
+      <button @click="calc((tags[7]))"> {{ tags[7] }} </button>
+      <button @click="calc((tags[8]))"> {{ tags[8] }} </button>
+      <button @click="calc((tags[9]))"> {{ tags[9] }} </button> 
+      <button @click="calc((tags[12]))"> {{ tags[12] }} </button>
+    </div>
+
+    <div> 
+      <button @click="calc((tags[15]))"> {{ tags[15] }} </button>
+      <button @click="calc((tags[0]))"> {{ tags[0] }} </button>
+      <button @click="calc((tags[13]))"> {{ tags[13] }} </button>
+      <button @click="calc((tags[14]))"> {{ tags[14] }} </button> 
+    </div>
+    
+    <h4> Valor Armazenado:  {{ value1 }} </h4>    
+    <h4> temp : {{ textInput }} </h4>
+  </div> 
 </template>
 
 <style scoped>
 
 </style>
+
+
+<script lang="ts"> 
+import TitleComponent from "./components/TitleComponent/title-component.vue"
+import ButtonComponent from "./components/ButtonComponent/button-component.vue"
+export default {
+  name: "App",
+  data() {
+    return {
+      tags : ['0','1','2','3','4','5','6','7','8','9','+','-','x','/','=','Clear' ],
+      controlOperation : 'b',
+      signal : 'a',
+      textOut : "",
+      textInput : "",
+      value1 : 0,
+      value2 : 0,
+    }
+    
+  },
+
+  components: {
+    ButtonComponent,
+    TitleComponent,
+    // computed: {
+    //   calculator(): Calculator {
+    //   return new Calculator()
+    //   }
+    // }
+  },
+  methods: {
+      calc(enter : string ){
+          if(this.controlOperation == 'b' || enter == "Clear"){
+            this.textInput = ""
+            this.value1 = 0
+            this.value2 = 0
+            this.textOut = ""
+            this.controlOperation = 'a'
+          }
+
+          if(this.controlOperation == 'a' && enter != "Clear"){              
+            
+            this.textOut += enter 
+            if(enter != "+" && enter != "-" && enter != "x" && enter != "/" && enter != "="){
+                this.textInput += enter  
+            }
+
+            if(enter == '+' || enter == '-' || enter == 'x' || enter == '/' ){         
+                this.signal = enter              
+                this.value1 = Number(this.textInput)                                    
+              this.controlOperation = 'a' 
+              this.textInput = ""
+            }else if(enter == '='){
+              this.value2 = Number(this.textInput)
+              this.textOut += this.algebricOperation(this.signal,this.value1,this.value2) 
+              this.controlOperation = 'b'
+            }            
+          }
+        },
+  algebricOperation(signal: string, value1: number, value2: number ): string{
+    switch(signal){
+        case '+':
+            return String(value1+value2)
+        case '-':
+            return String(value1-value2) 
+        case 'x':
+            return String(value1*value2)
+        case '/':
+            return String(value1/value2)
+        default: 
+            return ""
+    }
+  }
+}
+}
+</script>
