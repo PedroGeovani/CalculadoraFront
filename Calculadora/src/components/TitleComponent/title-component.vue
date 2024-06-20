@@ -1,5 +1,5 @@
 <template>
-    <h3>{{ title }}</h3>
+    <li>{{ title }}</li>
 </template>
 
 <script lang="ts">
